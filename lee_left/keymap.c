@@ -60,7 +60,6 @@ enum combo_events {
   CM_COPY,
   CM_PASTE,
   CM_CUT,
-  SHE_SELECT,
   HE_SELECT,
   UD_SELECT,
   COMBO_LENGTH
@@ -83,7 +82,6 @@ const uint16_t PROGMEM cm_paste[] = {KC_CENT, KC_V, COMBO_END};
 const uint16_t PROGMEM cm_cut[] = {KC_CENT, KC_X, COMBO_END};
 
 const uint16_t PROGMEM he_select[] = {KC_HOME, KC_END, COMBO_END};
-const uint16_t PROGMEM she_select[] = {S(KC_HOME), S(KC_END), COMBO_END};
 const uint16_t PROGMEM ud_select[] = {KC_UP, KC_DOWN, COMBO_END};
 
 combo_t key_combos[] = {
@@ -98,7 +96,6 @@ combo_t key_combos[] = {
   [CM_PASTE] = COMBO(cm_paste, LCTL(KC_V)),
   [CM_CUT] = COMBO(cm_cut, LCTL(KC_X)),
   [MOUSE_LAYER] = COMBO_ACTION(mouse_layer),
-  [SHE_SELECT] = COMBO_ACTION(she_select),
   [HE_SELECT] = COMBO_ACTION(he_select),
   [UD_SELECT] = COMBO_ACTION(ud_select)
 };
@@ -113,7 +110,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
   case CLEAR_BWD:
     if (pressed) {
       tap_code16(S(KC_HOME));
-      tap_code16(KC_BSPC);
+      tap_code16(KC_DEL);
       layer_move(0);
     }
     break;
@@ -134,7 +131,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     }
     break;
   case HE_SELECT:
-  case SHE_SELECT:
     if (pressed) {
 	  tap_code16(KC_HOME);
       tap_code16(S(KC_END));
@@ -201,11 +197,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [1] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_GESC, _______,    KC_7,    KC_8,    KC_9, _______,                       LR_CBR, KC_HOME, KC_PGUP, KC_PGDN,  KC_END, _______,
+      KC_GESC, KC_LCBR,    KC_7,    KC_8,    KC_9, KC_RCBR,                      KC_PIPE, KC_HOME, KC_PGUP, KC_PGDN,  KC_END, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, _______,    KC_4,    KC_5,    KC_6, _______,                       LR_PRN, KC_LEFT,   KC_UP, KC_DOWN, KC_RGHT,  KC_GRV,
+      _______, KC_LPRN,    KC_4,    KC_5,    KC_6, KC_RPRN,                       KC_DLR, KC_LEFT,   KC_UP, KC_DOWN, KC_RGHT,  KC_GRV,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, _______,    KC_1,    KC_2,    KC_3, _______,                       LR_BRC,  KC_DLR, KC_LPRN, KC_RPRN, KC_BSLS, KC_SEQL,
+      _______, KC_LBRC,    KC_1,    KC_2,    KC_3, KC_RBRC,                      KC_AMPR, _______, _______, _______, KC_BSLS, KC_SEQL,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_0GUI, _______, _______,    _______, _______, _______  
                                       //`--------------------------'  `--------------------------'
@@ -213,11 +209,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [2] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_TILD, _______,   KC_F7,    KC_F8,  KC_F9, _______,                      KC_RCBR, _______, _______, _______, _______, _______,
+      KC_TILD, _______,   KC_F7,    KC_F8,  KC_F9, LR_RCBR,                      _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, _______,   KC_F4,   KC_F5,   KC_F6, _______,                      KC_RPRN, _______, _______, _______, _______, _______,
+      _______, _______,   KC_F4,   KC_F5,   KC_F6, LR_RPRN,                      _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, _______,   KC_F1,   KC_F2,   KC_F3, _______,                      KC_RBRC, _______, KC_LBRC, KC_RBRC, _______, _______,
+      _______, _______,   KC_F1,   KC_F2,   KC_F3, LR_RBRC,                      _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_FGUI, _______, _______,    _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -250,13 +246,13 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
   switch (index) {
   case H_BTN1:
-    return COMBO_TERM - 30;
+    return COMBO_TERM - 35;
   case H_BTN2:
     return COMBO_TERM - 30;
   case H_BTN3:
     return COMBO_TERM - 20;
   case EM_EMAIL:
-    return COMBO_TERM - 30;
+    return COMBO_TERM - 35;
   }
   return COMBO_TERM;
 }
