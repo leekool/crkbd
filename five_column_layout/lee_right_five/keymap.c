@@ -48,8 +48,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* layer taps */
 #define L1_BSPC LT(1, KC_BSPC)
-#define L3_SCLN LT(3, KC_SCLN)
-#define L4_EQL LT(4, KC_EQL)
+#define L3_TAB LT(3, KC_TAB)
+#define L4_ESC LT(4, KC_ESC)
 
 enum custom_keycodes {
   DRAG_SCROLL = SAFE_RANGE,
@@ -66,7 +66,6 @@ static report_mouse_t last_mouse_report   = {0};
 
 enum combo_events {
   QW_ESC,
-  CM_TAB,
   EM_EMAIL,
   H_BTN1,
   H_BTN2,
@@ -84,7 +83,6 @@ enum combo_events {
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM qw_esc[] = {KC_Q, KC_W, COMBO_END};
-const uint16_t PROGMEM cm_tab[] = {A_GUI, R_ALT, COMBO_END};
 
 const uint16_t PROGMEM email_combo[] = {E_SFT, KC_M, COMBO_END};
 
@@ -103,7 +101,6 @@ const uint16_t PROGMEM ud_select[] = {KC_UP, KC_DOWN, COMBO_END};
 
 combo_t key_combos[] = {
   [QW_ESC] = COMBO(qw_esc, QK_GESC),
-  [CM_TAB] = COMBO(cm_tab, KC_TAB),
   [EM_EMAIL] = COMBO_ACTION(email_combo),
   [H_BTN1] = COMBO(h_btn1, KC_BTN1),
   [H_BTN2] = COMBO(h_btn2, KC_BTN2),
@@ -192,17 +189,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                           KC_DEL, L1_BSPC, CTL_ENT,    CTL_SPC, L3_SCLN,  L4_EQL
+                                           KC_DEL, L1_BSPC, CTL_ENT,    CTL_SPC,  L3_TAB,  L4_ESC
                                       //`--------------------------'  `--------------------------'
     ),
 
   [1] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, _______, _______, _______, _______, _______,                      _______, KC_HOME, KC_PGUP, KC_PGDN,  KC_END, _______,
+      _______, _______, _______, _______, _______, _______,                       KC_DLR, KC_HOME, KC_PGUP, KC_PGDN,  KC_END, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, _______,                      _______, KC_LEFT,   KC_UP, KC_DOWN, KC_RGHT, _______,
+      _______, KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, _______,                      KC_SCLN, KC_LEFT,   KC_UP, KC_DOWN, KC_RGHT, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, _______, _______, _______, _______, _______,                       KC_CUT, KC_UNDO, KC_COPY, KC_PSTE, KC_AGIN, _______,
+      _______, _______, _______, _______, _______, _______,                      KC_MINS,  KC_EQL, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,    _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -228,7 +225,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, KC_PIPE,    KC_1,    KC_2,    KC_3, KC_LCBR,                      KC_MINS, _______, _______,  KC_EQL, KC_BSLS, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          _______, _______, _______,    _______, _______, _______
+                                          _______,    KC_0, _______,    _______, _______, _______
                                       //`--------------------------'  `--------------------------'
     ),
 
@@ -263,7 +260,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     return TAPPING_TERM + 40;
   case A_GUI:
   case O_GUI:
-    return TAPPING_TERM + 30;
+    return TAPPING_TERM + 40;
   default:
     return TAPPING_TERM;
   }
