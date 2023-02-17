@@ -24,16 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string.h>
 #include "lib/lib8tion/lib8tion.h"
 
-#define CTL_ENT LCTL_T(KC_ENT)        // enter / left ctrl
-#define CTL_SPC RCTL_T(KC_SPC)
-
-#define SFT_BSPC LSFT_T(KC_BSPC)
-
-#define SFT_0 LSFT_T(KC_0)
-#define SFT_F10 LSFT_T(KC_F10)
-
-#define KC_SMIN RSFT_T(KC_MINS)
-#define KC_SEQL RSFT_T(KC_EQL)
+#define ENT_CTL LCTL_T(KC_ENT)        // enter / left ctrl
+#define SPC_CTL RCTL_T(KC_SPC)
 
 /* home row mods */
 #define A_GUI LGUI_T(KC_A)
@@ -95,9 +87,9 @@ const uint16_t PROGMEM h_btn3[] = {KC_H, N_CTL, E_SFT, COMBO_END};
 const uint16_t PROGMEM middle_click[] = {KC_BTN1, KC_BTN2, COMBO_END};
 const uint16_t PROGMEM mouse_layer[] = {MO(1), MO(2), COMBO_END};
 
-const uint16_t PROGMEM cm_copy[] = {CTL_ENT, KC_C, COMBO_END};
-const uint16_t PROGMEM cm_paste[] = {CTL_ENT, KC_V, COMBO_END};
-const uint16_t PROGMEM cm_cut[] = {CTL_ENT, KC_X, COMBO_END};
+const uint16_t PROGMEM cm_copy[] = {ENT_CTL, KC_C, COMBO_END};
+const uint16_t PROGMEM cm_paste[] = {ENT_CTL, KC_V, COMBO_END};
+const uint16_t PROGMEM cm_cut[] = {ENT_CTL, KC_X, COMBO_END};
 
 const uint16_t PROGMEM he_select[] = {KC_HOME, KC_END, COMBO_END};
 const uint16_t PROGMEM ud_select[] = {KC_UP, KC_DOWN, COMBO_END};
@@ -192,7 +184,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX,   Z_SFT,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M, KC_COMM,  KC_DOT,  SL_SFT, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                           KC_DEL, L1_BSPC, CTL_ENT,    CTL_SPC,  L3_TAB,  L4_ESC
+                                           KC_DEL, L1_BSPC, ENT_CTL,    SPC_CTL,  L3_TAB,  L4_ESC
                                       //`--------------------------'  `--------------------------'
     ),
 
@@ -259,7 +251,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-  case CTL_SPC:
+  case SPC_CTL:
     return TAPPING_TERM + 40;
   case A_GUI:
   case O_GUI:
