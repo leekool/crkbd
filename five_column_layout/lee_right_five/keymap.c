@@ -44,7 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* layer taps */
 #define L1_BSPC LT(1, KC_BSPC)
 #define L3_TAB LT(3, KC_TAB)
-#define L4_ESC LT(4, QK_GESC)
+#define L4_ESC LT(4, KC_ESC)
 
 enum custom_keycodes {
   DRAG_SCROLL = SAFE_RANGE,
@@ -256,6 +256,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case SPC_CTL:
     return TAPPING_TERM + 35;
+  case Z_SFT:
+    return TAPPING_TERM - 10;
   case A_GUI:
   case O_GUI:
     return TAPPING_TERM + 45;
