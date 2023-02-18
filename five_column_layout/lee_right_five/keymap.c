@@ -60,6 +60,7 @@ static report_mouse_t last_mouse_report   = {0};
 #endif
 
 enum combo_events {
+  YQ_GRV,
   QW_ESC,
   EM_EMAIL,
   H_BTN1,
@@ -78,12 +79,13 @@ enum combo_events {
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM qw_esc[] = {KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM yq_grv[] = {KC_Y, KC_QUOT, COMBO_END};
 
-const uint16_t PROGMEM email_combo[] = {E_SFT, KC_M, COMBO_END};
+const uint16_t PROGMEM email_combo[] = {E_CTL, KC_M, COMBO_END};
 
-const uint16_t PROGMEM h_btn1[] = {KC_H, N_CTL, COMBO_END};
-const uint16_t PROGMEM h_btn2[] = {N_CTL, E_SFT, COMBO_END};
-const uint16_t PROGMEM h_btn3[] = {KC_H, N_CTL, E_SFT, COMBO_END};
+const uint16_t PROGMEM h_btn1[] = {KC_H, KC_N, COMBO_END};
+const uint16_t PROGMEM h_btn2[] = {KC_N, E_CTL, COMBO_END};
+const uint16_t PROGMEM h_btn3[] = {KC_H, KC_N, E_CTL, COMBO_END};
 const uint16_t PROGMEM middle_click[] = {KC_BTN1, KC_BTN2, COMBO_END};
 const uint16_t PROGMEM mouse_layer[] = {MO(1), MO(2), COMBO_END};
 
@@ -95,6 +97,7 @@ const uint16_t PROGMEM he_select[] = {KC_HOME, KC_END, COMBO_END};
 const uint16_t PROGMEM ud_select[] = {KC_UP, KC_DOWN, COMBO_END};
 
 combo_t key_combos[] = {
+  [YQ_GRV] = COMBO(yq_grv, KC_GRV),
   [QW_ESC] = COMBO(qw_esc, QK_GESC),
   [EM_EMAIL] = COMBO_ACTION(email_combo),
   [H_BTN1] = COMBO(h_btn1, KC_BTN1),
@@ -154,7 +157,7 @@ bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key
   case H_BTN2:
     switch (keycode) {
     case KC_H:
-    case E_SFT:
+    case E_CTL:
       unregister_code(KC_BTN2);
       break;
     }
@@ -163,8 +166,8 @@ bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key
   case MIDDLE_CLICK:
     switch (keycode) {
     case KC_H:
-    case N_CTL:
-    case E_SFT:
+    case KC_N:
+    case E_CTL:
     case KC_BTN1:
     case KC_BTN2:
       unregister_code(KC_BTN3);
@@ -180,7 +183,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       XXXXXXX,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                         KC_J,    KC_L,    KC_U,    KC_Y, KC_QUOT, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX,   A_GUI,   R_ALT,   S_CTL,   T_CTL,    KC_D,                         KC_H,   N_CTL,   E_CTL,   I_ALT,   O_GUI, XXXXXXX,
+      XXXXXXX,   A_GUI,   R_ALT,   S_CTL,    KC_T,    KC_D,                         KC_H,    KC_N,   E_CTL,   I_ALT,   O_GUI, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX,   Z_SFT,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M, KC_COMM,  KC_DOT,  SL_SFT, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -228,9 +231,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, _______,   KC_F7,   KC_F8,   KC_F9, KC_RBRC,                      _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, _______,   KC_F4,   KC_F5,   KC_F6, KC_RPRN,                       KC_GRV, _______, KC_LCTL, KC_LALT, KC_LGUI, _______,
+      _______, _______,   KC_F4,   KC_F5,   KC_F6, KC_RPRN,                      _______, _______, KC_LCTL, KC_LALT, KC_LGUI, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, _______,   KC_F1,   KC_F2,   KC_F3, KC_RCBR,                       KC_EQL, _______, _______, _______, KC_LSFT, _______,
+      _______, _______,   KC_F1,   KC_F2,   KC_F3, KC_RCBR,                      _______, _______, _______, _______, KC_LSFT, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______,  KC_F10, _______,    _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -252,10 +255,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case SPC_CTL:
-    return TAPPING_TERM + 40;
+    return TAPPING_TERM + 35;
   case A_GUI:
   case O_GUI:
-    return TAPPING_TERM + 50;
+    return TAPPING_TERM + 45;
   default:
     return TAPPING_TERM;
   }
@@ -270,7 +273,7 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
   case H_BTN3:
     return COMBO_TERM - 20;
   case EM_EMAIL:
-    return COMBO_TERM - 40;
+    return COMBO_TERM - 45;
   case MOUSE_LAYER:
     return COMBO_TERM - 40;
   }
