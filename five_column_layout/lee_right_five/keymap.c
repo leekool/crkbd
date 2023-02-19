@@ -40,6 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define Z_SFT LSFT_T(KC_Z)
 #define SL_SFT LSFT_T(KC_SLSH)
 #define BS_SFT LSFT_T(KC_BSLS)
+#define PI_SFT LSFT_T(KC_PIPE)
 
 /* layer taps */
 #define L1_BSPC LT(1, KC_BSPC)
@@ -197,7 +198,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, KC_LGUI, KC_LALT, KC_LCTL, _______, _______,                      KC_SCLN, KC_LEFT,   KC_UP, KC_DOWN, KC_RGHT, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_LSFT, _______, _______, _______, _______,                      KC_MINS,  KC_EQL, _______, _______,  BS_SFT, _______,
+      _______, PI_SFT, _______, _______, _______, _______,                      KC_MINS,  KC_EQL, _______, _______,  BS_SFT, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,    _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -257,6 +258,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   case SPC_CTL:
     return TAPPING_TERM + 35;
   case Z_SFT:
+  case PI_SFT:
     return TAPPING_TERM - 30;
   case A_GUI:
   case O_GUI:
