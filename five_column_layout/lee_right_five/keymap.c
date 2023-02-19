@@ -257,7 +257,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   case SPC_CTL:
     return TAPPING_TERM + 35;
   case Z_SFT:
-    return TAPPING_TERM - 20;
+    return TAPPING_TERM - 30;
   case A_GUI:
   case O_GUI:
     return TAPPING_TERM + 45;
