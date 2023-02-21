@@ -222,7 +222,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______,  KC_EQL,    KC_4,    KC_5,    KC_6, KC_LPRN,                      KC_SCLN, _______, KC_LCTL, KC_LALT, KC_LGUI, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_PIPE,    KC_1,    KC_2,    KC_3, KC_LCBR,                      KC_MINS,  KC_EQL, _______, _______,  BS_SFT, _______,
+      _______,  PI_SFT,    KC_1,    KC_2,    KC_3, KC_LCBR,                      KC_MINS,  KC_EQL, _______, _______,  BS_SFT, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______,    KC_0, _______,    _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -259,10 +259,15 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     return TAPPING_TERM + 35;
   case Z_SFT:
   case PI_SFT:
-    return TAPPING_TERM - 30;
+  case SL_SFT:
+  case BS_SFT:
+    return TAPPING_TERM - 40;
+  case L1_BSPC:
+  case L3_TAB:
+    return TAPPING_TERM - 15;
   case A_GUI:
   case O_GUI:
-    return TAPPING_TERM + 45;
+    return TAPPING_TERM + 40;
   default:
     return TAPPING_TERM;
   }
