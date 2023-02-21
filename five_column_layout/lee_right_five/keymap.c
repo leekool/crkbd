@@ -38,9 +38,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* corner shifts */
 #define Z_SFT LSFT_T(KC_Z)
-#define SL_SFT LSFT_T(KC_SLSH)
 #define BS_SFT LSFT_T(KC_BSLS)
-#define PI_SFT LSFT_T(KC_PIPE)
+#define SL_SFT LSFT_T(KC_SLSH)
+#define EQL_SFT LSFT_T(KC_EQL)
 
 /* layer taps */
 #define L1_BSPC LT(1, KC_BSPC)
@@ -198,7 +198,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, KC_LGUI, KC_LALT, KC_LCTL, _______, _______,                      KC_SCLN, KC_LEFT,   KC_UP, KC_DOWN, KC_RGHT, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, PI_SFT, _______, _______, _______, _______,                      KC_MINS,  KC_EQL, _______, _______,  BS_SFT, _______,
+      _______, EQL_SFT, _______, _______, _______, _______,                       KC_MINS,  KC_EQL, _______, _______,  BS_SFT, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______, _______, _______,    _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -220,9 +220,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______,  KC_DLR,    KC_7,    KC_8,    KC_9, KC_LBRC,                       KC_DLR, _______, _______, _______,  KC_GRV, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,  KC_EQL,    KC_4,    KC_5,    KC_6, KC_LPRN,                      KC_SCLN, _______, KC_LCTL, KC_LALT, KC_LGUI, _______,
+      _______, KC_PIPE,    KC_4,    KC_5,    KC_6, KC_LPRN,                      KC_SCLN, _______, KC_LCTL, KC_LALT, KC_LGUI, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,  PI_SFT,    KC_1,    KC_2,    KC_3, KC_LCBR,                      KC_MINS,  KC_EQL, _______, _______,  BS_SFT, _______,
+      _______, EQL_SFT,    KC_1,    KC_2,    KC_3, KC_LCBR,                      KC_MINS,  KC_EQL, _______, _______,  BS_SFT, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______,    KC_0, _______,    _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -234,7 +234,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, _______,   KC_F4,   KC_F5,   KC_F6, KC_RPRN,                      _______, _______, KC_LCTL, KC_LALT, KC_LGUI, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, _______,   KC_F1,   KC_F2,   KC_F3, KC_RCBR,                       KC_EQL, _______, _______, _______, KC_LSFT, _______,
+      _______, _______,   KC_F1,   KC_F2,   KC_F3, KC_RCBR,                      _______, _______, _______, _______, KC_LSFT, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______,  KC_F10, _______,    _______, _______, _______
                                       //`--------------------------'  `--------------------------'
@@ -258,7 +258,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   case SPC_CTL:
     return TAPPING_TERM + 35;
   case Z_SFT:
-  case PI_SFT:
+  case EQL_SFT:
   case SL_SFT:
   case BS_SFT:
     return TAPPING_TERM - 40;
@@ -289,6 +289,20 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
   }
   return COMBO_TERM;
 }
+
+const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
+const key_override_t lbrc_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LBRC, KC_RBRC);
+const key_override_t lprn_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LPRN, KC_RPRN);
+const key_override_t lcbr_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LCBR, KC_RCBR);
+
+// This globally defines all key overrides to be used
+const key_override_t **key_overrides = (const key_override_t *[]){
+    &delete_key_override,
+    &lbrc_key_override,
+    &lprn_key_override,
+    &lcbr_key_override,
+    NULL // Null terminate the array of overrides!
+};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
