@@ -284,7 +284,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
   switch (index) {
   case H_BTN1:
-  case IO_LPRC:
+  case IO_LPRN:
   case MOUSE_LAYER:
     return COMBO_TERM - 40;
   case H_BTN2:
