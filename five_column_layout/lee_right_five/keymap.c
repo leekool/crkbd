@@ -61,8 +61,10 @@ static report_mouse_t last_mouse_report   = {0};
 #endif
 
 enum combo_events {
-  YQ_GRV,
   QW_ESC,
+  YQ_GRV,
+  IO_LBRC,
+  SL_MINS,
   EM_EMAIL,
   H_BTN1,
   H_BTN2,
@@ -81,6 +83,8 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM qw_esc[] = {KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM yq_grv[] = {KC_Y, KC_QUOT, COMBO_END};
+const uint16_t PROGMEM io_lbrc[] = {I_ALT, O_GUI, COMBO_END};
+const uint16_t PROGMEM sl_mins[] = {KC_DOT, SL_SFT, COMBO_END};
 
 const uint16_t PROGMEM email_combo[] = {E_CTL, KC_M, COMBO_END};
 
@@ -98,8 +102,10 @@ const uint16_t PROGMEM he_select[] = {KC_HOME, KC_END, COMBO_END};
 const uint16_t PROGMEM ud_select[] = {KC_UP, KC_DOWN, COMBO_END};
 
 combo_t key_combos[] = {
-  [YQ_GRV] = COMBO(yq_grv, KC_GRV),
   [QW_ESC] = COMBO(qw_esc, QK_GESC),
+  [YQ_GRV] = COMBO(yq_grv, KC_GRV),
+  [IO_LBRC] = COMBO(io_lbrc, KC_LBRC),
+  [SL_MINS] = COMBO(sl_mins, KC_MINS),
   [EM_EMAIL] = COMBO_ACTION(email_combo),
   [H_BTN1] = COMBO(h_btn1, KC_BTN1),
   [H_BTN2] = COMBO(h_btn2, KC_BTN2),
@@ -257,14 +263,15 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case SPC_CTL:
     return TAPPING_TERM + 35;
-  case Z_SFT:
   case EQL_SFT:
   case SL_SFT:
   case BS_SFT:
-    return TAPPING_TERM - 40;
+    return TAPPING_TERM - 30;
+  case Z_SFT:
+    return TAPPING_TERM - 45;
   case L1_BSPC:
   case L3_TAB:
-    return TAPPING_TERM - 15;
+    return TAPPING_TERM - 20;
   case A_GUI:
     return TAPPING_TERM + 40;
   case O_GUI:
@@ -277,6 +284,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
   switch (index) {
   case H_BTN1:
+  case IO_LBRC:
+  case MOUSE_LAYER:
     return COMBO_TERM - 40;
   case H_BTN2:
     return COMBO_TERM - 35;
@@ -284,8 +293,6 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     return COMBO_TERM - 20;
   case EM_EMAIL:
     return COMBO_TERM - 45;
-  case MOUSE_LAYER:
-    return COMBO_TERM - 40;
   }
   return COMBO_TERM;
 }
