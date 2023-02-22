@@ -38,9 +38,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* corner shifts */
 #define Z_SFT LSFT_T(KC_Z)
-#define BS_SFT LSFT_T(KC_BSLS)
-#define SL_SFT LSFT_T(KC_SLSH)
 #define EQL_SFT LSFT_T(KC_EQL)
+#define BS_SFT RSFT_T(KC_BSLS)
+#define SL_SFT RSFT_T(KC_SLSH)
 
 /* layer taps */
 #define L1_BSPC LT(1, KC_BSPC)
@@ -63,7 +63,7 @@ static report_mouse_t last_mouse_report   = {0};
 enum combo_events {
   QW_ESC,
   YQ_GRV,
-  IO_LBRC,
+  IO_LPRN,
   SL_MINS,
   EM_EMAIL,
   H_BTN1,
@@ -83,7 +83,7 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM qw_esc[] = {KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM yq_grv[] = {KC_Y, KC_QUOT, COMBO_END};
-const uint16_t PROGMEM io_lbrc[] = {I_ALT, O_GUI, COMBO_END};
+const uint16_t PROGMEM io_lprn[] = {I_ALT, O_GUI, COMBO_END};
 const uint16_t PROGMEM sl_mins[] = {KC_DOT, SL_SFT, COMBO_END};
 
 const uint16_t PROGMEM email_combo[] = {E_CTL, KC_M, COMBO_END};
@@ -104,7 +104,7 @@ const uint16_t PROGMEM ud_select[] = {KC_UP, KC_DOWN, COMBO_END};
 combo_t key_combos[] = {
   [QW_ESC] = COMBO(qw_esc, QK_GESC),
   [YQ_GRV] = COMBO(yq_grv, KC_GRV),
-  [IO_LBRC] = COMBO(io_lbrc, KC_LBRC),
+  [IO_LPRN] = COMBO(io_lprn, KC_LPRN),
   [SL_MINS] = COMBO(sl_mins, KC_MINS),
   [EM_EMAIL] = COMBO_ACTION(email_combo),
   [H_BTN1] = COMBO(h_btn1, KC_BTN1),
