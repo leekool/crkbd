@@ -262,18 +262,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case SPC_CTL:
+  case A_GUI:
     return TAPPING_TERM + 35;
   case EQL_SFT:
   case SL_SFT:
   case BS_SFT:
     return TAPPING_TERM - 30;
   case Z_SFT:
-    return TAPPING_TERM - 45;
+    return TAPPING_TERM - 55;
   case L1_BSPC:
   case L3_TAB:
     return TAPPING_TERM - 20;
-  case A_GUI:
-    return TAPPING_TERM + 40;
   case O_GUI:
     return TAPPING_TERM + 20;
   default:
@@ -284,9 +283,10 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
   switch (index) {
   case H_BTN1:
-  case IO_LPRN:
   case MOUSE_LAYER:
     return COMBO_TERM - 40;
+  case IO_LPRN:
+    return COMBO_TERM - 50;
   case H_BTN2:
     return COMBO_TERM - 35;
   case H_BTN3:
@@ -297,7 +297,7 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
   return COMBO_TERM;
 }
 
-const key_override_t delete_key_override = ko_make_with_layers(MOD_MASK_SHIFT, L1_BSPC, KC_DEL, 1<<0);
+const key_override_t delete_key_override = ko_make_with_layers(MOD_MASK_SHIFT, KC_BSPC, KC_DEL, 1<<0);
 const key_override_t lbrc_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LBRC, KC_RBRC);
 const key_override_t lprn_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LPRN, KC_RPRN);
 const key_override_t lcbr_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LCBR, KC_RCBR);
