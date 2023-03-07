@@ -272,7 +272,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     return TAPPING_TERM - 55;
   case L1_BSPC:
   case L3_TAB:
-    return TAPPING_TERM - 20;
+    return TAPPING_TERM - 30;
   case O_GUI:
     return TAPPING_TERM + 20;
   default:
