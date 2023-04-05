@@ -48,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define L4_ESC LT(4, KC_ESC)
 
 enum custom_keycodes {
-  DRAG_SCR = SAFE_RANGE,
+  DRG_SCR = SAFE_RANGE,
   LR_PRN,
   LR_CBR,
   LR_BRC
@@ -63,7 +63,7 @@ static report_mouse_t last_mouse_report   = {0};
 enum combo_events {
   QW_ESC,
   YQ_GRV,
-  IO_LPRN,
+  IO_SCLN,
   SL_MINS,
   EM_EMAIL,
   H_BTN1,
@@ -76,17 +76,23 @@ enum combo_events {
   CM_CUT,
   HE_SELECT,
   UD_SELECT,
-  COMBO_LENGTH
+  COMBO_LENGTH,
+
+  HK_MB1,
+  JH_MB2
 };
 
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
 const uint16_t PROGMEM qw_esc[] = {KC_Q, KC_W, COMBO_END};
 const uint16_t PROGMEM yq_grv[] = {KC_Y, KC_QUOT, COMBO_END};
-const uint16_t PROGMEM io_lprn[] = {I_ALT, O_GUI, COMBO_END};
+const uint16_t PROGMEM io_scln[] = {I_ALT, O_GUI, COMBO_END};
 const uint16_t PROGMEM sl_mins[] = {KC_DOT, SL_SFT, COMBO_END};
 
 const uint16_t PROGMEM email_combo[] = {E_CTL, KC_M, COMBO_END};
+
+const uint16_t PROGMEM hk_mb1[] = {KC_H, KC_K, COMBO_END};
+const uint16_t PROGMEM jh_mb2[] = {KC_J, KC_H, COMBO_END};
 
 const uint16_t PROGMEM h_btn1[] = {KC_H, KC_N, COMBO_END};
 const uint16_t PROGMEM h_btn2[] = {KC_N, E_CTL, COMBO_END};
@@ -104,7 +110,7 @@ const uint16_t PROGMEM ud_select[] = {KC_UP, KC_DOWN, COMBO_END};
 combo_t key_combos[] = {
   [QW_ESC] = COMBO(qw_esc, QK_GESC),
   [YQ_GRV] = COMBO(yq_grv, KC_GRV),
-  [IO_LPRN] = COMBO(io_lprn, KC_LPRN),
+  [IO_SCLN] = COMBO(io_scln, KC_SCLN),
   [SL_MINS] = COMBO(sl_mins, KC_MINS),
   [EM_EMAIL] = COMBO_ACTION(email_combo),
   [H_BTN1] = COMBO(h_btn1, KC_BTN1),
@@ -116,7 +122,9 @@ combo_t key_combos[] = {
   [CM_CUT] = COMBO(cm_cut, LCTL(KC_X)),
   [MOUSE_LAYER] = COMBO_ACTION(mouse_layer),
   [HE_SELECT] = COMBO_ACTION(he_select),
-  [UD_SELECT] = COMBO_ACTION(ud_select)
+  [UD_SELECT] = COMBO_ACTION(ud_select),
+  [HK_MB1] = COMBO_ACTION(hk_mb1),
+  [JH_MB2] = COMBO_ACTION(jh_mb2)
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
@@ -248,7 +256,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [5] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, KC_VOLU,                      _______, _______, _______, _______, _______,DRAG_SCR,
+      _______, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, KC_VOLU,                      _______, _______, _______, _______, _______,DRG_SCR,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, KC_MS_L, KC_MS_U, KC_MS_D, KC_MS_R, KC_VOLD,                      _______, KC_BTN1, KC_BTN2, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -285,8 +293,8 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
   case H_BTN1:
   case MOUSE_LAYER:
     return COMBO_TERM - 40;
-  case IO_LPRN:
-    return COMBO_TERM - 50;
+  case IO_SCLN:
+    return COMBO_TERM - 55;
   case H_BTN2:
     return COMBO_TERM - 35;
   case H_BTN3:
@@ -314,7 +322,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
 #ifdef POINTING_DEVICE_ENABLE
-  case DRAG_SCR:
+  case DRG_SCR:
     if (record->event.pressed) {
       set_scrolling = !set_scrolling;
     }
