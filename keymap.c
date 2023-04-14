@@ -61,11 +61,13 @@ static report_mouse_t last_mouse_report   = {0};
 #endif
 
 enum combo_events {
-  QW_ESC,
+  JL_EQL,
+  LU_MINS,
+  UY_SCLN,
   YQ_GRV,
-  IO_SCLN,
-  SL_MINS,
   EM_EMAIL,
+  HK_MB1,
+  JH_MB2,
   H_BTN1,
   H_BTN2,
   H_BTN3,
@@ -74,25 +76,20 @@ enum combo_events {
   CM_COPY,
   CM_PASTE,
   CM_CUT,
-  HE_SELECT,
-  UD_SELECT,
   COMBO_LENGTH,
-
-  HK_MB1,
-  JH_MB2
 };
 
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
-const uint16_t PROGMEM qw_esc[] = {KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM jl_eql[] = {KC_J, KC_L, COMBO_END};
+const uint16_t PROGMEM lu_mins[] = {KC_L, KC_U, COMBO_END};
+const uint16_t PROGMEM uy_scln[] = {KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM yq_grv[] = {KC_Y, KC_QUOT, COMBO_END};
-const uint16_t PROGMEM io_scln[] = {I_ALT, O_GUI, COMBO_END};
-const uint16_t PROGMEM sl_mins[] = {KC_DOT, SL_SFT, COMBO_END};
 
 const uint16_t PROGMEM email_combo[] = {E_CTL, KC_M, COMBO_END};
 
 const uint16_t PROGMEM hk_mb1[] = {KC_H, KC_K, COMBO_END};
-const uint16_t PROGMEM jh_mb2[] = {KC_J, KC_H, COMBO_END};
+const uint16_t PROGMEM jh_mb2[] = {KC_H, KC_J, COMBO_END};
 
 const uint16_t PROGMEM h_btn1[] = {KC_H, KC_N, COMBO_END};
 const uint16_t PROGMEM h_btn2[] = {KC_N, E_CTL, COMBO_END};
@@ -104,15 +101,14 @@ const uint16_t PROGMEM cm_copy[] = {ENT_CTL, KC_C, COMBO_END};
 const uint16_t PROGMEM cm_paste[] = {ENT_CTL, KC_V, COMBO_END};
 const uint16_t PROGMEM cm_cut[] = {ENT_CTL, KC_X, COMBO_END};
 
-const uint16_t PROGMEM he_select[] = {KC_HOME, KC_END, COMBO_END};
-const uint16_t PROGMEM ud_select[] = {KC_UP, KC_DOWN, COMBO_END};
-
 combo_t key_combos[] = {
-  [QW_ESC] = COMBO(qw_esc, QK_GESC),
+  [JL_EQL] = COMBO(jl_eql, KC_EQL),
+  [LU_MINS] = COMBO(lu_mins, KC_MINS),
+  [UY_SCLN] = COMBO(uy_scln, KC_SCLN),
   [YQ_GRV] = COMBO(yq_grv, KC_GRV),
-  [IO_SCLN] = COMBO(io_scln, KC_SCLN),
-  [SL_MINS] = COMBO(sl_mins, KC_MINS),
   [EM_EMAIL] = COMBO_ACTION(email_combo),
+  [HK_MB1] = COMBO(hk_mb1, KC_BTN1),
+  [JH_MB2] = COMBO(jh_mb2, KC_BTN2),
   [H_BTN1] = COMBO(h_btn1, KC_BTN1),
   [H_BTN2] = COMBO(h_btn2, KC_BTN2),
   [H_BTN3] = COMBO(h_btn3, KC_BTN3),
@@ -121,10 +117,6 @@ combo_t key_combos[] = {
   [CM_PASTE] = COMBO(cm_paste, LCTL(KC_V)),
   [CM_CUT] = COMBO(cm_cut, LCTL(KC_X)),
   [MOUSE_LAYER] = COMBO_ACTION(mouse_layer),
-  [HE_SELECT] = COMBO_ACTION(he_select),
-  [UD_SELECT] = COMBO_ACTION(ud_select),
-  [HK_MB1] = COMBO_ACTION(hk_mb1),
-  [JH_MB2] = COMBO_ACTION(jh_mb2)
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
@@ -141,20 +133,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
       } else {
         layer_move(0);
       }
-    }
-    break;
-  case HE_SELECT:
-    if (pressed) {
-      tap_code16(KC_HOME);
-      tap_code16(S(KC_END));
-      layer_move(0);
-	}
-    break;
-  case UD_SELECT:
-    if (pressed) {
-      tap_code16(C(KC_UP));
-      tap_code16(C(S(KC_DOWN)));
-      layer_move(0);
     }
     break;
   }
@@ -272,17 +250,16 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   case SPC_CTL:
   case A_GUI:
     return TAPPING_TERM + 35;
+  case O_GUI:
+    return TAPPING_TERM + 20;
   case EQL_SFT:
   case SL_SFT:
   case BS_SFT:
-    return TAPPING_TERM - 30;
-  case Z_SFT:
-    return TAPPING_TERM - 55;
   case L1_BSPC:
   case L3_TAB:
     return TAPPING_TERM - 30;
-  case O_GUI:
-    return TAPPING_TERM + 20;
+  case Z_SFT:
+    return TAPPING_TERM - 60;
   default:
     return TAPPING_TERM;
   }
@@ -290,21 +267,22 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
   switch (index) {
+  case UY_SCLN:
+  case LU_MINS:
+  case H_BTN3:
+    return COMBO_TERM - 20;
+  case H_BTN2:
+    return COMBO_TERM - 35;
   case H_BTN1:
   case MOUSE_LAYER:
     return COMBO_TERM - 40;
-  case IO_SCLN:
-    return COMBO_TERM - 55;
-  case H_BTN2:
-    return COMBO_TERM - 35;
-  case H_BTN3:
-    return COMBO_TERM - 20;
   case EM_EMAIL:
     return COMBO_TERM - 45;
   }
   return COMBO_TERM;
 }
 
+// shift key overrides
 const key_override_t delete_key_override = ko_make_with_layers(MOD_MASK_SHIFT, KC_BSPC, KC_DEL, 1<<0);
 const key_override_t lbrc_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LBRC, KC_RBRC);
 const key_override_t lprn_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LPRN, KC_RPRN);
