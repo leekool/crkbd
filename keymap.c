@@ -76,6 +76,7 @@ enum combo_events {
   CM_COPY,
   CM_PASTE,
   CM_CUT,
+  CM_ALL,
   COMBO_LENGTH,
 };
 
@@ -86,7 +87,7 @@ const uint16_t PROGMEM lu_mins[] = {KC_L, KC_U, COMBO_END};
 const uint16_t PROGMEM uy_scln[] = {KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM yq_grv[] = {KC_Y, KC_QUOT, COMBO_END};
 
-const uint16_t PROGMEM email_combo[] = {E_CTL, KC_M, COMBO_END};
+// const uint16_t PROGMEM email_combo[] = {E_CTL, KC_M, COMBO_END};
 
 const uint16_t PROGMEM hk_mb1[] = {KC_H, KC_K, COMBO_END};
 const uint16_t PROGMEM jh_mb2[] = {KC_H, KC_J, COMBO_END};
@@ -100,13 +101,14 @@ const uint16_t PROGMEM mouse_layer[] = {MO(1), MO(2), COMBO_END};
 const uint16_t PROGMEM cm_copy[] = {ENT_CTL, KC_C, COMBO_END};
 const uint16_t PROGMEM cm_paste[] = {ENT_CTL, KC_V, COMBO_END};
 const uint16_t PROGMEM cm_cut[] = {ENT_CTL, KC_X, COMBO_END};
+const uint16_t PROGMEM cm_all[] = {ENT_CTL, A_GUI, COMBO_END};
 
 combo_t key_combos[] = {
   [JL_EQL] = COMBO(jl_eql, KC_EQL),
   [LU_MINS] = COMBO(lu_mins, KC_MINS),
   [UY_SCLN] = COMBO(uy_scln, KC_SCLN),
   [YQ_GRV] = COMBO(yq_grv, KC_GRV),
-  [EM_EMAIL] = COMBO_ACTION(email_combo),
+  // [EM_EMAIL] = COMBO_ACTION(email_combo),
   [HK_MB1] = COMBO(hk_mb1, KC_BTN1),
   [JH_MB2] = COMBO(jh_mb2, KC_BTN2),
   [H_BTN1] = COMBO(h_btn1, KC_BTN1),
@@ -116,16 +118,17 @@ combo_t key_combos[] = {
   [CM_COPY] = COMBO(cm_copy, LCTL(KC_C)),
   [CM_PASTE] = COMBO(cm_paste, LCTL(KC_V)),
   [CM_CUT] = COMBO(cm_cut, LCTL(KC_X)),
+  [CM_ALL] = COMBO(cm_all, LCTL(KC_A)),
   [MOUSE_LAYER] = COMBO_ACTION(mouse_layer),
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
-  case EM_EMAIL:
-    if (pressed) {
-      SEND_STRING("lee@imre.al");
-    }
-    break;
+  // case EM_EMAIL:
+  //   if (pressed) {
+  //     SEND_STRING("lee@imre.al");
+  //   }
+  //   break;
   case MOUSE_LAYER:
     if (pressed) {
       if (IS_LAYER_ON(0)) {
@@ -210,11 +213,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [3] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______,  KC_DLR,    KC_7,    KC_8,    KC_9, KC_LBRC,                       KC_DLR, _______, _______, _______,  KC_GRV, _______,
+      _______,  KC_DLR,    KC_7,    KC_8,    KC_9, KC_LBRC,                       KC_DLR,  KC_EQL, KC_MINS, KC_SCLN,  KC_GRV, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, KC_PIPE,    KC_4,    KC_5,    KC_6, KC_LPRN,                      KC_SCLN, _______, KC_LCTL, KC_LALT, KC_LGUI, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, EQL_SFT,    KC_1,    KC_2,    KC_3, KC_LCBR,                      KC_MINS,  KC_EQL, _______, _______,  BS_SFT, _______,
+      _______, EQL_SFT,    KC_1,    KC_2,    KC_3, KC_LCBR,                      KC_MINS, _______, _______, _______,  BS_SFT, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           _______,    KC_0, _______,    _______, _______,   MO(5)
                                       //`--------------------------'  `--------------------------'
@@ -256,10 +259,11 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   case SL_SFT:
   case BS_SFT:
   case L1_BSPC:
-  case L3_TAB:
     return TAPPING_TERM - 30;
+  case L3_TAB:
+    return TAPPING_TERM - 40;
   case Z_SFT:
-    return TAPPING_TERM - 60;
+    return TAPPING_TERM - 65;
   default:
     return TAPPING_TERM;
   }
@@ -276,8 +280,6 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
   case H_BTN1:
   case MOUSE_LAYER:
     return COMBO_TERM - 40;
-  case EM_EMAIL:
-    return COMBO_TERM - 45;
   }
   return COMBO_TERM;
 }
