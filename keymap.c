@@ -261,9 +261,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   case L1_BSPC:
     return TAPPING_TERM - 30;
   case L3_TAB:
-    return TAPPING_TERM - 50;
+    return TAPPING_TERM - 55;
   case Z_SFT:
-    return TAPPING_TERM - 70;
+    return TAPPING_TERM - 7%;
   default:
     return TAPPING_TERM;
   }
@@ -371,6 +371,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     break;
   case 3:
     pimoroni_trackball_set_rgbw(170,0,254,0);
+    break;
+  case 4:
+    pimoroni_trackball_set_rgbw(0,200,0,0);
+    break;
+  case 5:
+    pimoroni_trackball_set_rgbw(30,200,254,0);
     break;
   default: //  for any other layers, or the default layer
     pimoroni_trackball_set_rgbw(255,255,255,0);
