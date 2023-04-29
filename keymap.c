@@ -252,7 +252,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case SPC_CTL:
   case A_GUI:
-    return TAPPING_TERM + 35;
+    return TAPPING_TERM + 30;
   case O_GUI:
     return TAPPING_TERM + 20;
   case EQL_SFT:
