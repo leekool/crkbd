@@ -78,6 +78,8 @@ enum combo_events {
   CM_CUT,
   CM_ALL,
   COMBO_LENGTH,
+  CM_F11,
+  CM_F12,
 };
 
 uint16_t COMBO_LEN = COMBO_LENGTH;
@@ -103,6 +105,9 @@ const uint16_t PROGMEM cm_paste[] = {ENT_CTL, KC_V, COMBO_END};
 const uint16_t PROGMEM cm_cut[] = {ENT_CTL, KC_X, COMBO_END};
 const uint16_t PROGMEM cm_all[] = {ENT_CTL, A_GUI, COMBO_END};
 
+const uint16_t PROGMEM cm_f11[] = {KC_F1, KC_F10, COMBO_END};
+const uint16_t PROGMEM cm_f12[] = {KC_F2, KC_F10, COMBO_END};
+
 combo_t key_combos[] = {
   [JL_EQL] = COMBO(jl_eql, KC_EQL),
   [LU_MINS] = COMBO(lu_mins, KC_MINS),
@@ -120,6 +125,8 @@ combo_t key_combos[] = {
   [CM_CUT] = COMBO(cm_cut, LCTL(KC_X)),
   [CM_ALL] = COMBO(cm_all, LCTL(KC_A)),
   [MOUSE_LAYER] = COMBO_ACTION(mouse_layer),
+  [CM_F11] = COMBO(cm_all, KC_F11)),
+  [CM_F12] = COMBO(cm_all, KC_F12)),
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
