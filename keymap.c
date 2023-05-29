@@ -72,7 +72,6 @@ enum combo_events {
   H_BTN2,
   H_BTN3,
   MIDDLE_CLICK,
-  MOUSE_LAYER,
   CM_COPY,
   CM_PASTE,
   CM_CUT,
@@ -98,7 +97,6 @@ const uint16_t PROGMEM h_btn1[] = {KC_H, KC_N, COMBO_END};
 const uint16_t PROGMEM h_btn2[] = {KC_N, E_CTL, COMBO_END};
 const uint16_t PROGMEM h_btn3[] = {KC_H, KC_N, E_CTL, COMBO_END};
 const uint16_t PROGMEM middle_click[] = {KC_BTN1, KC_BTN2, COMBO_END};
-const uint16_t PROGMEM mouse_layer[] = {MO(1), MO(2), COMBO_END};
 
 const uint16_t PROGMEM cm_copy[] = {ENT_CTL, KC_C, COMBO_END};
 const uint16_t PROGMEM cm_paste[] = {ENT_CTL, KC_V, COMBO_END};
@@ -124,7 +122,6 @@ combo_t key_combos[] = {
   [CM_PASTE] = COMBO(cm_paste, LCTL(KC_V)),
   [CM_CUT] = COMBO(cm_cut, LCTL(KC_X)),
   [CM_ALL] = COMBO(cm_all, LCTL(KC_A)),
-  [MOUSE_LAYER] = COMBO_ACTION(mouse_layer),
   [CM_F11] = COMBO(cm_all, KC_F11)),
   [CM_F12] = COMBO(cm_all, KC_F12)),
 };
@@ -136,15 +133,15 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
   //     SEND_STRING("lee@imre.al");
   //   }
   //   break;
-  case MOUSE_LAYER:
-    if (pressed) {
-      if (IS_LAYER_ON(0)) {
-        layer_move(5);
-      } else {
-        layer_move(0);
-      }
-    }
-    break;
+  // case MOUSE_LAYER:
+  //   if (pressed) {
+  //     if (IS_LAYER_ON(0)) {
+  //       layer_move(5);
+  //     } else {
+  //       layer_move(0);
+  //     }
+  //   }
+  //   break;
   }
 }
 
@@ -285,8 +282,8 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
   case H_BTN2:
     return COMBO_TERM - 35;
   case H_BTN1:
-  case MOUSE_LAYER:
-    return COMBO_TERM - 40;
+  // case MOUSE_LAYER:
+  //   return COMBO_TERM - 40;
   }
   return COMBO_TERM;
 }
