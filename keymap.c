@@ -133,15 +133,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
   //     SEND_STRING("lee@imre.al");
   //   }
   //   break;
-  // case MOUSE_LAYER:
-  //   if (pressed) {
-  //     if (IS_LAYER_ON(0)) {
-  //       layer_move(5);
-  //     } else {
-  //       layer_move(0);
-  //     }
-  //   }
-  //   break;
   }
 }
 
@@ -282,8 +273,6 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
   case H_BTN2:
     return COMBO_TERM - 35;
   case H_BTN1:
-  // case MOUSE_LAYER:
-  //   return COMBO_TERM - 40;
   }
   return COMBO_TERM;
 }
