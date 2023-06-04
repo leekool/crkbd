@@ -3,7 +3,6 @@ COMBO_ENABLE = yes
 KEY_OVERRIDE_ENABLE = yes
 CAPS_WORD_ENABLE = yes
 
-# pimoroni uncommented on the right side
 POINTING_DEVICE_DRIVER = pimoroni_trackball
 
 PIMORONI_TRACKBALL_ENABLE = yes

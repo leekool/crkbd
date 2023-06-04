@@ -71,7 +71,6 @@ enum combo_events {
   H_BTN1,
   H_BTN2,
   H_BTN3,
-  MIDDLE_CLICK,
   CM_COPY,
   CM_PASTE,
   CM_CUT,
@@ -96,7 +95,6 @@ const uint16_t PROGMEM jh_mb2[] = {KC_H, KC_J, COMBO_END};
 const uint16_t PROGMEM h_btn1[] = {KC_H, KC_N, COMBO_END};
 const uint16_t PROGMEM h_btn2[] = {KC_N, E_CTL, COMBO_END};
 const uint16_t PROGMEM h_btn3[] = {KC_H, KC_N, E_CTL, COMBO_END};
-const uint16_t PROGMEM middle_click[] = {KC_BTN1, KC_BTN2, COMBO_END};
 
 const uint16_t PROGMEM cm_copy[] = {ENT_CTL, KC_C, COMBO_END};
 const uint16_t PROGMEM cm_paste[] = {ENT_CTL, KC_V, COMBO_END};
@@ -117,13 +115,12 @@ combo_t key_combos[] = {
   [H_BTN1] = COMBO(h_btn1, KC_BTN1),
   [H_BTN2] = COMBO(h_btn2, KC_BTN2),
   [H_BTN3] = COMBO(h_btn3, KC_BTN3),
-  [MIDDLE_CLICK] = COMBO(middle_click, KC_BTN3),
   [CM_COPY] = COMBO(cm_copy, LCTL(KC_C)),
   [CM_PASTE] = COMBO(cm_paste, LCTL(KC_V)),
   [CM_CUT] = COMBO(cm_cut, LCTL(KC_X)),
   [CM_ALL] = COMBO(cm_all, LCTL(KC_A)),
-  [CM_F11] = COMBO(cm_all, KC_F11)),
-  [CM_F12] = COMBO(cm_all, KC_F12)),
+  [CM_F11] = COMBO(cm_all, KC_F11),
+  [CM_F12] = COMBO(cm_all, KC_F12),
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
@@ -154,16 +151,16 @@ bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key
     }
     return false;
   case H_BTN3:
-  case MIDDLE_CLICK:
-    switch (keycode) {
-    case KC_H:
-    case KC_N:
-    case E_CTL:
-    case KC_BTN1:
-    case KC_BTN2:
-      unregister_code(KC_BTN3);
-      break;
-    }
+  // case MIDDLE_CLICK:
+  //   switch (keycode) {
+  //   case KC_H:
+  //   case KC_N:
+  //   case E_CTL:
+  //   case KC_BTN1:
+  //   case KC_BTN2:
+  //     unregister_code(KC_BTN3);
+  //     break;
+  //   }
     return false;
   }
   return false;
@@ -242,7 +239,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   )
 };
- 
+
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case SPC_CTL:
@@ -273,6 +270,7 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
   case H_BTN2:
     return COMBO_TERM - 35;
   case H_BTN1:
+    return COMBO_TERM - 40;
   }
   return COMBO_TERM;
 }
