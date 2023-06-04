@@ -119,8 +119,8 @@ combo_t key_combos[] = {
   [CM_PASTE] = COMBO(cm_paste, LCTL(KC_V)),
   [CM_CUT] = COMBO(cm_cut, LCTL(KC_X)),
   [CM_ALL] = COMBO(cm_all, LCTL(KC_A)),
-  [CM_F11] = COMBO(cm_all, KC_F11),
-  [CM_F12] = COMBO(cm_all, KC_F12),
+  [CM_F11] = COMBO(cm_f11, KC_F11),
+  [CM_F12] = COMBO(cm_f12, KC_F12),
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
