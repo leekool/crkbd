@@ -10,14 +10,14 @@ the mount wraps around and braces against the trrs jacks to keep it stable
 key overrides for open bracket keys whereby shift + bracket returns its closing bracket
 
 **** combos
-| keys      | result       |
-|-----------+--------------|
-| h + n     | left click   |
-| n + e     | right click  |
-| h + n + e | middle click |
-| q + w     | esc          |
-| y + '     | `            |
-| i + o     | (            |
-| . + /     | -            |
-
+| keys              | result       |
+|-------------------+--------------|
+| h + n / h + k     | left click   |
+| n + e / j + h     | right click  |
+| h + n + e         | middle click |
+| q + w             | esc          |
+| j + l             | =            |
+| l + u             | -            |
+| u + y             | ;            |
+| y + '             | `            |
 -----
