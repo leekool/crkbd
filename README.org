@@ -20,4 +20,14 @@ key overrides for open bracket keys whereby shift + bracket returns its closing 
 | l + u             | -            |
 | u + y             | ;            |
 | y + '             | `            |
+| f10 + f1          | f11          |
+| f10 + f2          | f12          |
+-----
+
+**** shift overrides
+| keys              | result       |
+|-------------------+--------------|
+| shift + (         | )            |
+| shift + [         | ]            |
+| shift + {         | }            |
 -----
