@@ -1,21 +1,3 @@
-/*
-Copyright 2019 @foostan
-Copyright 2020 Drashna Jaelre <@drashna>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
 #ifdef PIMORONI_TRACKBALL_ENABLE
 #include "drivers/sensors/pimoroni_trackball.h"
 #endif
@@ -24,7 +6,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string.h>
 #include "lib/lib8tion/lib8tion.h"
 
-#define ENT_CTL LCTL_T(KC_ENT)        // enter / left ctrl
+#define ENT_CTL LCTL_T(KC_ENT)
 #define SPC_CTL RCTL_T(KC_SPC)
 
 /* home row mods */
@@ -75,9 +57,9 @@ enum combo_events {
   CM_PASTE,
   CM_CUT,
   CM_ALL,
-  COMBO_LENGTH,
   CM_F11,
   CM_F12,
+  COMBO_LENGTH,
 };
 
 uint16_t COMBO_LEN = COMBO_LENGTH;
