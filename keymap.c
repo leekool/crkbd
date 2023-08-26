@@ -69,7 +69,7 @@ const uint16_t PROGMEM lu_mins[] = {KC_L, KC_U, COMBO_END};
 const uint16_t PROGMEM uy_scln[] = {KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM yq_grv[] = {KC_Y, KC_QUOT, COMBO_END};
 
-const uint16_t PROGMEM email_combo[] = {E_CTL, KC_M, COMBO_END};
+// const uint16_t PROGMEM email_combo[] = {E_CTL, KC_M, COMBO_END};
 
 const uint16_t PROGMEM hk_mb1[] = {KC_H, KC_K, COMBO_END};
 const uint16_t PROGMEM jh_mb2[] = {KC_H, KC_J, COMBO_END};
@@ -91,7 +91,7 @@ combo_t key_combos[] = {
   [LU_MINS] = COMBO(lu_mins, KC_MINS),
   [UY_SCLN] = COMBO(uy_scln, KC_SCLN),
   [YQ_GRV] = COMBO(yq_grv, KC_GRV),
-  [EM_EMAIL] = COMBO_ACTION(email_combo),
+  // [EM_EMAIL] = COMBO_ACTION(email_combo),
   [HK_MB1] = COMBO(hk_mb1, KC_BTN1),
   [JH_MB2] = COMBO(jh_mb2, KC_BTN2),
   [H_BTN1] = COMBO(h_btn1, KC_BTN1),
@@ -107,11 +107,11 @@ combo_t key_combos[] = {
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
-  case EM_EMAIL:
-    if (pressed) {
-      SEND_STRING("lee@imre.al");
-    }
-    break;
+  // case EM_EMAIL:
+  //   if (pressed) {
+  //     SEND_STRING("lee@imre.al");
+  //   }
+  //   break;
   }
 }
 
@@ -250,7 +250,7 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
   case H_BTN3:
     return COMBO_TERM - 20;
   case H_BTN2:
-  case EM_EMAIL:
+  // case EM_EMAIL:
     return COMBO_TERM - 35;
   case H_BTN1:
     return COMBO_TERM - 40;
