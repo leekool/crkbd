@@ -5,7 +5,7 @@ designed to be used with a trackball using the left hand, with mouse 1, 2 and 3 
 tapping term per key and combo term per combo tuned for me to reduce accidental holds & combo activation
 
 pimoroni mount i designed to make the pimoroni as level with the keys as possible, the pimoroni screws into both the mount and the pcb
-the mount wraps around and braces against the trrs jacks to keep it stable
+the mount wraps around and braces against the trrs jacks to keep it stable - .stl in the 3d folder
 
 key overrides for open bracket keys whereby shift + bracket returns its closing bracket
 
