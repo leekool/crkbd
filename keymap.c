@@ -264,13 +264,12 @@ const key_override_t lbrc_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LBRC, 
 const key_override_t lprn_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LPRN, KC_RPRN);
 const key_override_t lcbr_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LCBR, KC_RCBR);
 
-// This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
     &delete_key_override,
     &lbrc_key_override,
     &lprn_key_override,
     &lcbr_key_override,
-    NULL // Null terminate the array of overrides!
+    NULL 
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
